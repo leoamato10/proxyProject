@@ -1,3 +1,5 @@
+import { ApisauceInstance } from "apisauce";
+
     type MarvelHeroesListResponse = {
     //TODO: tipar las respuestas de API para listado de héroes
   };
@@ -6,13 +8,13 @@
     //TODO: tipar las respuestas de API para listado de cómics de un héroe
   };
   
-  type MarvelResponse = MarvelHeroesListResponse | MarvelHeroComicsListResponse;
+  export type MarvelResponse = MarvelHeroesListResponse | MarvelHeroComicsListResponse;
   
   type MarvelHeroData = Array<{}>; //TODO tipar los datos de héroes
   type MarvelComicData = Array<{}>; //TODO: tipar los datos de cómics
-  type MarvelData = MarvelHeroData | MarvelComicData;
+  export type MarvelData = MarvelHeroData | MarvelComicData;
   
-  type ContextStateUninitialized = {
+  export type ContextStateUninitialized = {
     url?: undefined;
     isFetching: false;
     data?: undefined;
@@ -30,14 +32,14 @@
     data?: T;
   };
   
-  type ContextStateFetched<T> = {
+  export type ContextStateFetched<T> = {
     url: string;
     isFetching: false;
     data: T;
     apisauceInstance: ApisauceInstance;
   };
   
-  type ApiRequestContextState<T> =
+  export type ApiRequestContextState<T> =
     | ContextStateUninitialized
     | ContextStateInitialized
     | ContextStateFetching<T>

@@ -1,8 +1,10 @@
 import { FlatList, Text, View } from "react-native";
-import { useCachedRequests } from "../ProxyProvider";
+import { useCachedRequests } from "../Context/CacheRequest";
+
 
 function HeroesList() {
-    const [state, actions] = useCachedRequests();
+  const [state, actions] = useCachedRequests();
+  
     return (
       <View>
         <FlatList

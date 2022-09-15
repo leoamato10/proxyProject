@@ -1,27 +1,6 @@
 import {ApisauceInstance, create} from 'apisauce';
-import * as React from 'react';
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { MarvelResponse } from '../Types/Types';
 
-
-interface IActions {
-  paginate(): void;
-}
-
-const initialState = {
-  isFetching: false,
-};
-
-type Props = {
-  url: string;
-  maxResultsPerPage: number;
-  children: JSX.Element;
-};
 
 type ProxyHandler<T, P extends string> = {
   get?(target: T, p: P, receiver: any): any;
@@ -40,7 +19,7 @@ declare const Proxy: {
   ): {[key: string]: Promise<T>};
 };
 
-const marvelProxy = new Proxy<MarvelResponse>(
+export const marvelProxy = new Proxy<MarvelResponse>(
   {apiInstance: create({baseURL: 'https://developer.marvel.com'}), results: {}},
   {
     get: function <T extends MarvelResponse>(
@@ -89,37 +68,3 @@ const marvelProxy = new Proxy<MarvelResponse>(
     },
   },
 );
-
-const ApiRequestContext = createContext<[ApiRequestContextState<MarvelData>, IActions]>([initialState as ContextStateUninitialized, {paginate: () => undefined}]);
-
-function getAuthQueryStringParams(): {
-  apikey: string;
-  ts: string;
-  hash: string;
-} {
-  throw new Error('TODO: devolver los parametros de autenticación');
-}
-
-function getPaginationQueryStringParams(
-  maxResults: number,
-  page: number,
-): {
-  limit: string;
-  offset: string;
-} {
-  throw new Error(
-    `TODO: devolver los parametros de paginación para el listado de héroes con ${maxResults} resultados por página y página ${page}`,
-  );
-}
-
-
-
-export const useCachedRequests = (): [
-  ApiRequestContextState<MarvelData>,
-  IActions,
-] => {
-  return useContext(ApiRequestContext);
-};
-
-
-
